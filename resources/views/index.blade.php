@@ -12,7 +12,8 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
+        <div class="col">
+        {{-- <div class="col-xs-8 col-xs-offset-2"> --}}
           <form action="/" id="search-form" method="get">
             <div class="input-group">
               <div class="input-group-btn search-panel">
@@ -25,9 +26,43 @@
             </div>
         </form>
         </div>
+        <div class="col">
+          <form action="/" id="search-form" method="get">
+            <div class="input-group">
+              <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default" disabled>AdvancedSearch</button>
+              </div>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Search term..." value="{{ $name or '' }}">
+              </div>
+              <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" class="form-control" name="company" placeholder="Search term..." value="{{ $company or '' }}">
+              </div>
+              <div class="form-group">
+                <label for="title">Work Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Search term..." value="{{ $title or '' }}">
+              </div>
+              <div class="form-group">
+                <label for="year-start">Year Started</label>
+                <input type="number" class="form-control" name="year-start" placeholder="Search term..." value="{{ $yearStart or '' }}">
+              </div>
+              <div class="form-group">
+                <label for="year-end">Year Ended</label>
+                <input type="number" class="form-control" name="year-end" placeholder="Search term..." value="{{ $yearEnd or '' }}">
+              </div>
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="no glyphicon glyphicon-search"></span></button>
+              </span>
+            </div>
+        </form>
+        </div>
       </div>
     </div>
     <br>
+    <div class="container">
+
     <div class="center" id="users" style="margin: 0 auto; width: 75%;">
       @forelse ($users as $user)
         <div class="col-sm-6 col-md-4">
@@ -46,32 +81,30 @@
         </div>
       @endforelse
     </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-3 col-md-4 ">
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="{{ $users->url(1) }}">First</a></li>
-                    <li class="page-item {{ $users->currentPage() == '1' ? 'disabled' : '' }}"><a class="page-link" href="{{ $users->previousPageUrl() }}">Previous</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#">{{  $users->currentPage() }}</a></li>
-                    <li class="page-item {{ $users->hasMorePages() ? '' : 'disabled' }}"><a class="page-link" href="{{ $users->nextPageUrl()  }}">Next</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ $users->url($users->lastPage()) }}">Last</a></li>
-                </ul>
-            </nav>
-            <form class="" action="/profile/invite" method="post">
-                {{ csrf_field() }}
-                <div class="sandbox">
-                    <label for="select-to-selectized">Invite Some People:</label>
-                    <select name="people[]" id="select-to" class="contacts selectized" placeholder="Enter email addresses" multiple="multiple" tabindex="-1" style="display: none;">
-                    </select>
-                </div>
-                <button type="submit" name="button" class="btn btn-primary">Send Invites</button>
-            </form>
+  </div>
+  <div class="row">
+    <div class="center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="{{ $users->url(1) }}">First</a></li>
+          <li class="page-item {{ $users->currentPage() == '1' ? 'disabled' : '' }}"><a class="page-link" href="{{ $users->previousPageUrl() }}">Previous</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#">{{  $users->currentPage() }}</a></li>
+          <li class="page-item {{ $users->hasMorePages() ? '' : 'disabled' }}"><a class="page-link" href="{{ $users->nextPageUrl()  }}">Next</a></li>
+          <li class="page-item"><a class="page-link" href="{{ $users->url($users->lastPage()) }}">Last</a></li>
+        </ul>
+      </nav>
+      <form action="/profile/invite" method="post">
+        {{ csrf_field() }}
+        <div class="sandbox">
+          <label for="select-to-selectized">Invite Some People:</label>
+          <select name="people[]" id="select-to" class="contacts selectized" placeholder="Enter email addresses" multiple="multiple" tabindex="-1" style="display: none;">
+          </select>
         </div>
+        <button type="submit" name="button" class="btn btn-primary">Send Invites</button>
+      </form>
     </div>
   </div>
+</div>
 @endsection
 @section('styles')
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.css" />
