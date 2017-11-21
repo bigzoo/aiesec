@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller{
     public function home(Request $request){
+      // TODO: Move this search to the User model.
         $q = $request->get('q');
         if ($q) {
             $users = User::search($q)->paginate(5);
@@ -35,6 +36,6 @@ class PagesController extends Controller{
             ->when($yearEnd, function ($query) use ($yearEnd) {
                 return $query->where('year-end', '=', $yearEnd);
             })->paginate(5);
-      return view('index', compact('users'));
+      return view('index', compact('users', 'name', 'company', 'title', 'yearStart', 'yearEnd'));
     }
 }
