@@ -39,7 +39,7 @@ class User extends Authenticatable
       // Name the image
       $imageName = $userId;
       // Set the destination path of the image
-      $destinationPath = public_path('/images/profileImages' .'/' . $userId);
+      $destinationPath = public_path('/images/profileImages');
       // Save the image in the folder
       $image->move($destinationPath, $imageName);
       return $imageName;
